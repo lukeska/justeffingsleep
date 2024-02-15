@@ -1,18 +1,5 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import LullabyLayout from "../../layouts/LullabyLayout.astro";
 ---
 
-<Layout title="It's already 2am!">
-	<main>
-		<h1 class="text-center text-6xl font-black my-10 text-indigo-500">
-			It's already 2am!
-		</h1>
-
-		<div class="">
-			<audio class="mx-auto" controls>
-				<source src="/music/lullaby-1.mp3" type="audio/mpeg" />
-				Your browser does not support the audio element.
-			</audio>
-		</div>
-	</main>
-</Layout>
+<LullabyLayout title="It's already 2am!" mp3="/music/lullaby-1.mp3" />
