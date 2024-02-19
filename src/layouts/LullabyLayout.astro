@@ -5,6 +5,10 @@ const { title, mp3 } = Astro.props;
 
 <Layout>
 	<slot name="headScripts">
+		<script
+			defer
+			src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+		></script>
 		<script type="module">
 			import AudioMotionAnalyzer from "https://cdn.skypack.dev/audiomotion-analyzer?min";
 
@@ -159,10 +163,11 @@ const { title, mp3 } = Astro.props;
 
 			// instantiate analyzer
 			const audioMotion = new AudioMotionAnalyzer(
-				document.getElementById("container"),
+				document.getElementById("audio-motion-container"),
 				{
 					source: audioEl,
-					height: window.innerHeight - 50,
+					height: window.innerHeight,
+					showScaleX: false,
 					// you can set other options below - check the docs!
 					//gradient: "Tie Dye",
 					//mode: 3,
@@ -185,18 +190,71 @@ const { title, mp3 } = Astro.props;
 		</script>
 	</slot>
 
-	<main>
-		<div id="container"></div>
+	<a href="/" class="bg-white/50 block fixed top-10 left-10 rounded-full p-2"
+		><svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 24 24"
+			fill="currentColor"
+			class="w-6 h-6"
+		>
+			<path
+				fill-rule="evenodd"
+				d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z"
+				clip-rule="evenodd"></path>
+		</svg>
+	</a>
 
-		<h1 class="text-center text-6xl font-black my-10 text-indigo-500">
-			{title}
-		</h1>
+	<main
+		x-data="{ play: false }"
+		class="grid grid-cols-1 grid-rows-1 place-items-center"
+	>
+		<div class="min-h-screen col-[1] row-[1] overflow-hidden">
+			<div id="audio-motion-container"></div>
+		</div>
 
-		<div class="">
-			<audio id="audio" class="mx-auto" controls>
-				<source src={mp3} type="audio/mpeg" />
-				Your browser does not support the audio element.
-			</audio>
+		<div class="col-[1] row-[1]">
+			<h1 class="text-center text-6xl font-black my-10 text-white">
+				{title}
+			</h1>
+
+			<div>
+				<button
+					@click="play = !play; $refs.audio.paused ? $refs.audio.play() : $refs.audio.pause()"
+					class="mx-auto rounded-full flex items-center justify-center w-20 h-20 bg-white"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="currentColor"
+						class="w-12 h-12 transform translate-x-1"
+						x-show="!play"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z"
+							clip-rule="evenodd"></path>
+					</svg>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="currentColor"
+						class="w-12 h-12"
+						x-show="play"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0A.75.75 0 0 1 15 4.5h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z"
+							clip-rule="evenodd"></path>
+					</svg>
+				</button>
+			</div>
+
+			<div class="hidden">
+				<audio id="audio" class="mx-auto" controls loop x-ref="audio">
+					<source src={mp3} type="audio/mpeg" />
+					Your browser does not support the audio element.
+				</audio>
+			</div>
 		</div>
 	</main>
 	<slot />
