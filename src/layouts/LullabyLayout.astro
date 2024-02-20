@@ -1,6 +1,6 @@
 ---
 import Layout from "./Layout.astro";
-const { title, mp3 } = Astro.props;
+const { title, mp3, img } = Astro.props;
 ---
 
 <Layout>
@@ -190,9 +190,7 @@ const { title, mp3 } = Astro.props;
 		</script>
 	</slot>
 
-	<a
-		href="/"
-		class="bg-white/50 block fixed top-10 left-10 rounded-full p-2 z-10"
+	<a href="/" class="bg-white block fixed top-6 left-6 rounded-full p-2 z-10"
 		><svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 24 24"
@@ -217,6 +215,10 @@ const { title, mp3 } = Astro.props;
 		</div>
 
 		<div class="col-[1] row-[1] relative">
+			<div class="mb-10 w-40 mx-auto">
+				<img src={img} alt={title} class="object-contain w-40 h-40" />
+			</div>
+
 			<h1
 				class="text-center text-3xl md:text-6xl font-black my-10 text-white px-10 text-balance"
 			>
@@ -245,6 +247,7 @@ const { title, mp3 } = Astro.props;
 						viewBox="0 0 24 24"
 						fill="currentColor"
 						class="w-12 h-12"
+						style="display: none;"
 						x-show="play"
 					>
 						<path
