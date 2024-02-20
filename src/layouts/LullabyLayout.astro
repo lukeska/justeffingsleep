@@ -190,7 +190,9 @@ const { title, mp3 } = Astro.props;
 		</script>
 	</slot>
 
-	<a href="/" class="bg-white/50 block fixed top-10 left-10 rounded-full p-2"
+	<a
+		href="/"
+		class="bg-white/50 block fixed top-10 left-10 rounded-full p-2 z-10"
 		><svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 24 24"
@@ -206,14 +208,18 @@ const { title, mp3 } = Astro.props;
 
 	<main
 		x-data="{ play: false }"
-		class="grid grid-cols-1 grid-rows-1 place-items-center"
+		class="grid grid-cols-1 grid-rows-1 place-items-center relative min-h-screen"
 	>
-		<div class="min-h-screen col-[1] row-[1] overflow-hidden">
+		<div
+			class="min-h-screen col-[1] row-[1] overflow-hidden absolute inset-0 z-0"
+		>
 			<div id="audio-motion-container"></div>
 		</div>
 
-		<div class="col-[1] row-[1]">
-			<h1 class="text-center text-6xl font-black my-10 text-white">
+		<div class="col-[1] row-[1] relative">
+			<h1
+				class="text-center text-3xl md:text-6xl font-black my-10 text-white px-10 text-balance"
+			>
 				{title}
 			</h1>
 
